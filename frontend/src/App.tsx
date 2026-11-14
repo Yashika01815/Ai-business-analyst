@@ -5,6 +5,7 @@ import { DatasetProvider } from './context/DatasetContext'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Pricing from './pages/Pricing'
 import Dashboard from './pages/Dashboard'
 import Upload from './pages/Upload'
 import Explorer from './pages/Explorer'
@@ -37,6 +38,7 @@ export default function App() {
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/pricing" element={<Pricing />} />
 
       <Route path="/dashboard" element={<Protected><Dashboard /></Protected>} />
       <Route path="/upload" element={<Protected><Upload /></Protected>} />

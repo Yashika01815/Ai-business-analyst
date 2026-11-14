@@ -28,6 +28,9 @@ export default function Landing() {
         </div>
         <div className="flex items-center gap-3">
           <ThemeToggle />
+          <Link to="/pricing" className="text-[13.5px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors px-3 py-2">
+            Pricing
+          </Link>
           <Link to="/login" className="text-[13.5px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors px-3 py-2">
             Sign in
           </Link>

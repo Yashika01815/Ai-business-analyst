@@ -28,6 +28,12 @@ export default function Topbar({ title, subtitle }: { title: string; subtitle?: 
       </div>
 
       <div className="flex items-center gap-3">
+        <button
+          onClick={() => navigate('/pricing')}
+          className="hidden sm:block text-[13px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors px-3 py-2"
+        >
+          Pricing
+        </button>
         <ThemeToggle />
         {datasets.length > 0 ? (
           <div className="relative" ref={ref}>

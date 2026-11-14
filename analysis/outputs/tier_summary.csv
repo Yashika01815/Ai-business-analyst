@@ -1,0 +1,5 @@
+plan_tier,customers,arpu_monthly_revenue,median_revenue,churn_rate,avg_usage
+Enterprise,88,711.2,715.8,0.05,58.37
+Growth,279,101.37,101.14,0.1,40.31
+Scale,164,256.08,255.38,0.05,56.25
+Starter,369,29.61,29.54,0.09,39.3
