@@ -1,12 +1,12 @@
 """
 Business Report Generator: assembles a structured executive report from
 real KPI, insight, anomaly, forecast, and recommendation data, with an
-optional Gemini-written executive summary narrative.
+optional Groq-written executive summary narrative.
 """
 import json
 from typing import Any, Dict, List, Optional
 
-from app.services.gemini_client import generate_text, is_available
+from app.services.groq_client import generate_text, is_available
 
 
 def generate_executive_summary(kpis: List[Dict[str, Any]], insights: List[Dict[str, Any]],

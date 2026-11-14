@@ -28,7 +28,7 @@ def load_dataset_df(engine: Engine, table_name: str) -> pd.DataFrame:
 
 def run_sql(engine: Engine, sql: str, params: Optional[Dict[str, Any]] = None) -> pd.DataFrame:
     """Execute a read-only SQL query against a dataset table. Used both by
-    the API layer and by the Gemini-orchestrated Ask Your Data tool."""
+    the API layer and by the Groq-orchestrated Ask Your Data tool."""
     with engine.connect() as conn:
         return pd.read_sql_query(text(sql), conn, params=params or {})
 

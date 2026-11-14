@@ -19,13 +19,14 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days
 
     # --- Database ---
-    # Render Postgres provides DATABASE_URL automatically.
+    # Production uses Supabase Postgres: set DATABASE_URL to the connection
+    # string from Supabase (Project Settings > Database > Connection string).
     # Falls back to local SQLite for zero-config local development.
     DATABASE_URL: str = "sqlite:///./ai_business_analyst.db"
 
-    # --- Gemini (Google Generative AI) ---
-    GEMINI_API_KEY: str = ""
-    GEMINI_MODEL: str = "gemini-1.5-flash"
+    # --- Groq (LLM reasoning) ---
+    GROQ_API_KEY: str = ""
+    GROQ_MODEL: str = "openai/gpt-oss-120b"
 
     # --- Resend (email) ---
     RESEND_API_KEY: str = ""

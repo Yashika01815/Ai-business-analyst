@@ -40,7 +40,7 @@ export default function Landing() {
       <header className="max-w-4xl mx-auto text-center px-6 pt-20 pb-16">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
           className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-900/10 dark:border-white/10 bg-black/[0.03] dark:bg-white/5 text-[12.5px] text-slate-600 dark:text-slate-300 mb-6">
-          <Sparkles size={13} className="text-accent-400" /> Powered by Google Gemini + real SQL/ML analytics
+          <Sparkles size={13} className="text-accent-400" /> Powered by Groq + real SQL/ML analytics
         </motion.div>
         <motion.h1 initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.05 }}
           className="text-[44px] sm:text-[56px] leading-[1.05] font-display font-bold tracking-tight">

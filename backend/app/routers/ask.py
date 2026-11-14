@@ -8,7 +8,7 @@ from app.models.analysis import AnalysisRecord
 from app.schemas import AskRequest, AskResponse
 from app.auth import get_current_user
 from app.services import analytics
-from app.services.gemini_orchestrator import answer_question
+from app.services.ai_orchestrator import answer_question
 
 router = APIRouter(prefix="/api/ask", tags=["ask"])
 

@@ -10,7 +10,7 @@
 ## ✨ Features
 
 - 📊 **Automated Analytics** — KPIs, charts, trends, correlations, and business insights
-- 💬 **Ask Your Data** — Ask natural-language questions about your dataset using Gemini
+- 💬 **Ask Your Data** — Ask natural-language questions about your dataset using Groq
 - 🚨 **Anomaly Detection** — Z-score + Isolation Forest
 - 📈 **Forecasting** — Holt-Winters + Linear Regression with MAE/RMSE/MAPE
 - 👥 **Customer Segmentation** — K-Means clustering with silhouette-based K selection
@@ -29,7 +29,7 @@
               Data Ingestion & Cleaning
                          │
                          ▼
-                    PostgreSQL
+              Supabase (PostgreSQL)
                          │
               ┌──────────┴──────────┐
               │                     │
@@ -48,7 +48,7 @@
        │                 │                 │
        └─────────────────┼─────────────────┘
                          ▼
-                   Gemini AI Layer
+                   Groq AI Layer
                          │
                          ▼
               Ask Your Data + Reports
@@ -59,7 +59,7 @@
 
 ### AI Architecture
 
-Gemini is used for natural-language understanding and tool orchestration. **All numerical results are calculated by the SQL/Python analytics layer**, ensuring that the AI does not invent business numbers.
+Groq is used for natural-language understanding and tool orchestration. **All numerical results are calculated by the SQL/Python analytics layer**, ensuring that the AI does not invent business numbers.
 
 ## 🛠️ Tech Stack
 
@@ -67,10 +67,10 @@ Gemini is used for natural-language understanding and tool orchestration. **All 
 | ---------------- | ----------------------------------------------------------------- |
 | Frontend         | React.js, Vite, TypeScript, Tailwind CSS, Framer Motion, Recharts |
 | Backend          | FastAPI, Python, SQLAlchemy, Pydantic                             |
-| Database         | PostgreSQL, SQLite                                                |
+| Database         | Supabase (PostgreSQL), SQLite for local dev                       |
 | Data Processing  | Pandas, NumPy                                                     |
 | Machine Learning | Scikit-learn, Statsmodels                                         |
-| AI               | Google Gemini API                                                 |
+| AI               | Groq API (openai/gpt-oss-120b)                                                 |
 | Email            | Resend                                                            |
 | Authentication   | JWT, bcrypt                                                       |
 | Scheduling       | APScheduler                                                       |
@@ -115,7 +115,7 @@ Upload CSV/XLSX
        ↓
 Profile & Clean Data
        ↓
-Store in PostgreSQL
+Store in Supabase (PostgreSQL)
        ↓
 Generate KPIs & Visualizations
        ↓
@@ -129,7 +129,7 @@ Run What-If Scenarios
        ↓
 Generate Recommendations
        ↓
-Ask Questions Using Gemini
+Ask Questions Using Groq
        ↓
 Generate Reports & Alerts
        ↓
@@ -142,7 +142,7 @@ Send Automated Emails
 
 * Python 3.11+
 * Node.js 18+
-* PostgreSQL (optional — SQLite works for local development)
+* A Supabase project (optional — SQLite works for local development)
 
 ### Backend
 
@@ -234,12 +234,12 @@ http://localhost:5173
 ```env
 SECRET_KEY=your-secret-key
 DATABASE_URL=sqlite:///./ai_business_analyst.db
-GEMINI_API_KEY=your-gemini-api-key
+GROQ_API_KEY=your-groq-api-key
 RESEND_API_KEY=your-resend-api-key
 FRONTEND_ORIGINS=http://localhost:5173
 ```
 
-Gemini and Resend are optional. Core analytics features can run without these API keys.
+Groq and Resend are optional. Core analytics features can run without these API keys.
 
 ### Frontend
 
@@ -291,7 +291,7 @@ The platform is designed around a simple principle:
 
 KPIs, charts, forecasts, anomalies, clusters, and recommendations are generated from the uploaded dataset and computed through the backend analytics pipeline.
 
-Gemini is responsible for understanding natural-language questions, selecting the appropriate analytical tool, and explaining verified results.
+Groq is responsible for understanding natural-language questions, selecting the appropriate analytical tool, and explaining verified results.
 
 ## 🌐 Deployment
 
@@ -301,7 +301,7 @@ Deploy the `frontend/` directory to **Vercel**.
 
 ### Backend
 
-Deploy the `backend/` directory to **Render** with PostgreSQL.
+Deploy the `backend/` directory to **Render**, with the database on **Supabase**. Set `DATABASE_URL` to your Supabase Session pooler connection string.
 
 Set the required environment variables in the deployment platform.
 
@@ -320,7 +320,7 @@ Set the required environment variables in the deployment platform.
 
 ---
 
-**Built with React, FastAPI, Python, PostgreSQL, Scikit-learn, Gemini, and Resend.**
+**Built with React, FastAPI, Python, Supabase, Scikit-learn, Groq, and Resend.**
 
 ```
 

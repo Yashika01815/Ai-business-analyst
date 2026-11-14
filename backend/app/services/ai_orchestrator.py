@@ -1,9 +1,9 @@
 """
 Ask Your Data orchestration layer.
 
-Gemini's ONLY job is to (1) decide which verified backend tool answers the
+Groq's ONLY job is to (1) decide which verified backend tool answers the
 user's question and with what arguments, and (2) explain the tool's real
-output in plain English. Gemini never invents numbers itself — every
+output in plain English. Groq never invents numbers itself — every
 figure shown to the user comes from the SQL/Pandas/sklearn tool execution
 below, which is the single source of truth.
 """
@@ -15,7 +15,7 @@ import pandas as pd
 from sqlalchemy.engine import Engine
 
 from app.services import analytics
-from app.services.gemini_client import get_model, is_available, generate_text
+from app.services.groq_client import is_available, generate_text
 from app.utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -149,7 +149,7 @@ def _detect_top_n(q: str) -> int:
 
 
 def _fallback_plan(question: str, schema_map: Dict[str, Any]) -> Dict[str, Any]:
-    """Heuristic fallback used when Gemini is unavailable, so the feature
+    """Heuristic fallback used when Groq is unavailable, so the feature
     still works (with reduced flexibility) without an API key. Uses the
     actual wording of each question — which metric/dimension is named and
     whether it's asking for a total, a ranking, or a breakdown — rather
@@ -166,27 +166,27 @@ def _fallback_plan(question: str, schema_map: Dict[str, Any]) -> Dict[str, Any]:
     if not metric:
         return {"tool": "describe_metric",
                 "args": {"metric": metrics[0] if metrics else (all_numeric[0] if all_numeric else "value")},
-                "reasoning": "Heuristic fallback: no specific metric recognized, showing the primary metric (no Gemini API key configured)."}
+                "reasoning": "Heuristic fallback: no specific metric recognized, showing the primary metric (no Groq API key configured)."}
 
     # A plain "what is the total X" with no dimension or ranking language -> describe_metric.
     if intent == "describe" and not dim:
         return {"tool": "describe_metric", "args": {"metric": metric},
-                "reasoning": "Heuristic fallback: detected a totals/summary question (no Gemini API key configured)."}
+                "reasoning": "Heuristic fallback: detected a totals/summary question (no Groq API key configured)."}
 
     # Ranking or breakdown language, or a dimension was explicitly named -> aggregate.
     if intent in ("top", "bottom", "breakdown") or dim:
         chosen_dim = dim or (dims[0] if dims else None)
         if not chosen_dim:
             return {"tool": "describe_metric", "args": {"metric": metric},
-                    "reasoning": "Heuristic fallback: no dimension available to break down by (no Gemini API key configured)."}
+                    "reasoning": "Heuristic fallback: no dimension available to break down by (no Groq API key configured)."}
         return {"tool": "aggregate",
                 "args": {"dimension": chosen_dim, "metric": metric, "agg": "sum",
                           "top_n": _detect_top_n(q), "ascending": intent == "bottom"},
-                "reasoning": f"Heuristic fallback: detected a '{intent}' question about {metric} by {chosen_dim} (no Gemini API key configured)."}
+                "reasoning": f"Heuristic fallback: detected a '{intent}' question about {metric} by {chosen_dim} (no Groq API key configured)."}
 
     # Default: no clear ranking/breakdown/total signal — summarize the metric.
     return {"tool": "describe_metric", "args": {"metric": metric},
-            "reasoning": "Heuristic fallback: defaulting to a summary of the recognized metric (no Gemini API key configured)."}
+            "reasoning": "Heuristic fallback: defaulting to a summary of the recognized metric (no Groq API key configured)."}
 
 
 def answer_question(engine: Engine, df: pd.DataFrame, table_name: str,
@@ -201,7 +201,7 @@ def answer_question(engine: Engine, df: pd.DataFrame, table_name: str,
             raw = generate_text(prompt, temperature=0.1)
             plan = _extract_json(raw)
         except Exception as e:
-            logger.warning(f"Gemini planning failed, using fallback: {e}")
+            logger.warning(f"Groq planning failed, using fallback: {e}")
             plan = None
 
     if not plan or "tool" not in plan:
@@ -257,7 +257,7 @@ If the data doesn't fully answer the question, say so honestly."""
 
 
 def _plain_explanation(result: Dict[str, Any], tool: str) -> str:
-    """Deterministic explanation used when Gemini is not configured."""
+    """Deterministic explanation used when Groq is not configured."""
     if tool == "describe_metric":
         return (f"Total {result['metric'].replace('_',' ')}: {result['sum']:,.2f}. "
                 f"Average: {result['mean']:,.2f}. Range: {result['min']:,.2f} to {result['max']:,.2f} "

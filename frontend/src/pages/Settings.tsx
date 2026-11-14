@@ -57,7 +57,7 @@ export default function Settings() {
         <SectionCard title="About this workspace" right={<ShieldAlert size={16} className="text-accent-400" />}>
           <p className="text-[13px] text-slate-500 leading-relaxed">
             AI Business Analyst computes every KPI, chart, forecast, and answer directly from your data via
-            SQL and Python — the AI layer (Google Gemini) is used only for tool selection and natural-language
+            SQL and Python — the AI layer (Groq) is used only for tool selection and natural-language
             explanation, never for generating numbers on its own.
           </p>
         </SectionCard>

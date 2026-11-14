@@ -2,7 +2,7 @@
 AI Recommendation Engine.
 Converts verified analytical findings (insights + anomalies) into
 specific, prioritized, evidence-backed recommendations. Optionally
-enriched with Gemini for natural-language phrasing, but the underlying
+enriched with Groq for natural-language phrasing, but the underlying
 evidence and direction always come from real computed data.
 """
 from typing import Any, Dict, List

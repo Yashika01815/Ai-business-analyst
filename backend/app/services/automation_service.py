@@ -1,7 +1,7 @@
 """
 Automation engine: evaluates schedule / threshold / anomaly rules,
 compares the latest dataset snapshot to the previous one, generates a
-Gemini-powered explanation, and sends email via Resend. Also drives the
+Groq-powered explanation, and sends email via Resend. Also drives the
 Alert Center.
 """
 from datetime import datetime, timedelta, timezone

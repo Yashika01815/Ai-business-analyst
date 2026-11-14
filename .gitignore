@@ -1,0 +1,9 @@
+# Added by ML AI Code: build output and caches
+*.tsbuildinfo
+
+# Added by ML AI Code: build output and caches
+node_modules/
+
+# Secrets and local data
+.env
+*.db
